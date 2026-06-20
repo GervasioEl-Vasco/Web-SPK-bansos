@@ -67,14 +67,14 @@
                    style="border-radius:0 10px 10px 0;">
             @error('penghasilan')<div class="invalid-feedback">{{ $message }}</div>@enderror
         </div>
-        <small class="text-muted">≤1jt=1, 1-3jt=2, 3-5jt=3, >5jt=4</small>
+        <small class="text-muted">≤500rb=1, 500rb-1jt=2, 1-1.5jt=3, >1.5jt=4</small>
     </div>
 
     {{-- C2: Tanggungan --}}
     <div class="col-md-6">
         <label class="form-label fw-semibold">
             C2 – Jumlah Tanggungan Keluarga <span class="text-danger">*</span>
-            <span class="badge ms-1" style="background:#eff6ff;color:#1a3a6b;font-size:0.7rem;">Cost</span>
+            <span class="badge ms-1" style="background:#eff6ff;color:#1a3a6b;font-size:0.7rem;">Benefit</span>
         </label>
         <input type="number" name="tanggungan" id="tanggungan"
                class="form-control @error('tanggungan') is-invalid @enderror"
@@ -84,17 +84,17 @@
         <small class="text-muted">1 orang=1, 2 orang=2, 3 orang=3, ≥4=4</small>
     </div>
 
-    {{-- C3: Kondisi Rumah --}}
+    {{-- C3: Status/Kondisi Rumah --}}
     <div class="col-md-4">
         <label class="form-label fw-semibold">
-            C3 – Kondisi Rumah <span class="text-danger">*</span>
+            C3 – Status/Kondisi Rumah <span class="text-danger">*</span>
             <span class="badge ms-1" style="background:#eff6ff;color:#1a3a6b;font-size:0.7rem;">Cost</span>
         </label>
         <select name="kondisi_rumah" id="kondisi_rumah" class="form-select @error('kondisi_rumah') is-invalid @enderror" required>
-            <option value="1" {{ old('kondisi_rumah', $penduduk->kondisi_rumah ?? '') == 1 ? 'selected' : '' }}>1 – Kontrak/Sewa</option>
-            <option value="2" {{ old('kondisi_rumah', $penduduk->kondisi_rumah ?? '') == 2 ? 'selected' : '' }}>2 – Bambu/Kayu</option>
-            <option value="3" {{ old('kondisi_rumah', $penduduk->kondisi_rumah ?? '') == 3 ? 'selected' : '' }}>3 – Plester/Semi Permanen</option>
-            <option value="4" {{ old('kondisi_rumah', $penduduk->kondisi_rumah ?? '') == 4 ? 'selected' : '' }}>4 – Tembok Keramik/Permanen</option>
+            <option value="1" {{ old('kondisi_rumah', $penduduk->kondisi_rumah ?? '') == 1 ? 'selected' : '' }}>1 – Numpang/Magersari</option>
+            <option value="2" {{ old('kondisi_rumah', $penduduk->kondisi_rumah ?? '') == 2 ? 'selected' : '' }}>2 – Kontrak/Sewa</option>
+            <option value="3" {{ old('kondisi_rumah', $penduduk->kondisi_rumah ?? '') == 3 ? 'selected' : '' }}>3 – Rumah Warisan/Keluarga</option>
+            <option value="4" {{ old('kondisi_rumah', $penduduk->kondisi_rumah ?? '') == 4 ? 'selected' : '' }}>4 – Rumah Sendiri Permanen</option>
         </select>
         @error('kondisi_rumah')<div class="invalid-feedback">{{ $message }}</div>@enderror
     </div>
@@ -105,16 +105,12 @@
             C4 – Luas Bangunan (m²) <span class="text-danger">*</span>
             <span class="badge ms-1" style="background:#eff6ff;color:#1a3a6b;font-size:0.7rem;">Cost</span>
         </label>
-        <div class="input-group">
-            <input type="number" name="luas_bangunan" id="luas_bangunan"
-                   class="form-control @error('luas_bangunan') is-invalid @enderror"
-                   value="{{ old('luas_bangunan', $penduduk->luas_bangunan ?? 0) }}"
-                   min="0" placeholder="0"
-                   style="border-radius:10px 0 0 10px;" required>
-            <span class="input-group-text" style="border-radius:0 10px 10px 0;">m²</span>
-            @error('luas_bangunan')<div class="invalid-feedback">{{ $message }}</div>@enderror
-        </div>
-        <small class="text-muted"><30=1, 30-60=2, 61-90=3, >90=4</small>
+        <input type="number" name="luas_bangunan" id="luas_bangunan"
+               class="form-control @error('luas_bangunan') is-invalid @enderror"
+               value="{{ old('luas_bangunan', $penduduk->luas_bangunan ?? 0) }}"
+               min="0" placeholder="0" required>
+        @error('luas_bangunan')<div class="invalid-feedback">{{ $message }}</div>@enderror
+        <small class="text-muted"><30m²=1, 30-60m²=2, 60-90m²=3, >90m²=4</small>
     </div>
 
     {{-- C5: Jenis Lantai --}}
@@ -124,10 +120,10 @@
             <span class="badge ms-1" style="background:#eff6ff;color:#1a3a6b;font-size:0.7rem;">Cost</span>
         </label>
         <select name="jenis_lantai" id="jenis_lantai" class="form-select @error('jenis_lantai') is-invalid @enderror" required>
-            <option value="1" {{ old('jenis_lantai', $penduduk->jenis_lantai ?? '') == 1 ? 'selected' : '' }}>1 – Tanah</option>
-            <option value="2" {{ old('jenis_lantai', $penduduk->jenis_lantai ?? '') == 2 ? 'selected' : '' }}>2 – Papan/Kayu</option>
-            <option value="3" {{ old('jenis_lantai', $penduduk->jenis_lantai ?? '') == 3 ? 'selected' : '' }}>3 – Plester/Semen</option>
-            <option value="4" {{ old('jenis_lantai', $penduduk->jenis_lantai ?? '') == 4 ? 'selected' : '' }}>4 – Keramik/Granit</option>
+            <option value="1" {{ old('jenis_lantai', $penduduk->jenis_lantai ?? '') == 1 ? 'selected' : '' }}>1 – Tanah/Bambu</option>
+            <option value="2" {{ old('jenis_lantai', $penduduk->jenis_lantai ?? '') == 2 ? 'selected' : '' }}>2 – Semen/Kayu</option>
+            <option value="3" {{ old('jenis_lantai', $penduduk->jenis_lantai ?? '') == 3 ? 'selected' : '' }}>3 – Plester</option>
+            <option value="4" {{ old('jenis_lantai', $penduduk->jenis_lantai ?? '') == 4 ? 'selected' : '' }}>4 – Keramik/Marmer</option>
         </select>
         @error('jenis_lantai')<div class="invalid-feedback">{{ $message }}</div>@enderror
     </div>
@@ -139,25 +135,40 @@
             <span class="badge ms-1" style="background:#eff6ff;color:#1a3a6b;font-size:0.7rem;">Cost</span>
         </label>
         <select name="sumber_penerangan" id="sumber_penerangan" class="form-select @error('sumber_penerangan') is-invalid @enderror" required>
-            <option value="1" {{ old('sumber_penerangan', $penduduk->sumber_penerangan ?? '') == 1 ? 'selected' : '' }}>1 – Tidak Ada Listrik</option>
-            <option value="2" {{ old('sumber_penerangan', $penduduk->sumber_penerangan ?? '') == 2 ? 'selected' : '' }}>2 – PLN Tanpa Meteran</option>
-            <option value="3" {{ old('sumber_penerangan', $penduduk->sumber_penerangan ?? '') == 3 ? 'selected' : '' }}>3 – PLN ≤450 VA</option>
-            <option value="4" {{ old('sumber_penerangan', $penduduk->sumber_penerangan ?? '') == 4 ? 'selected' : '' }}>4 – PLN >450 VA</option>
+            <option value="1" {{ old('sumber_penerangan', $penduduk->sumber_penerangan ?? '') == 1 ? 'selected' : '' }}>1 – Tanpa Listrik/Lampu Tempel</option>
+            <option value="2" {{ old('sumber_penerangan', $penduduk->sumber_penerangan ?? '') == 2 ? 'selected' : '' }}>2 – Listrik PLN 450 Watt</option>
+            <option value="3" {{ old('sumber_penerangan', $penduduk->sumber_penerangan ?? '') == 3 ? 'selected' : '' }}>3 – Listrik PLN 900 Watt</option>
+            <option value="4" {{ old('sumber_penerangan', $penduduk->sumber_penerangan ?? '') == 4 ? 'selected' : '' }}>4 – Listrik PLN > 900 Watt</option>
         </select>
         @error('sumber_penerangan')<div class="invalid-feedback">{{ $message }}</div>@enderror
     </div>
 
-    {{-- C7: Kendaraan --}}
+    {{-- C7: Sumber Air Bersih --}}
     <div class="col-md-6">
         <label class="form-label fw-semibold">
-            C7 – Kepemilikan Kendaraan <span class="text-danger">*</span>
+            C7 – Sumber Air Bersih <span class="text-danger">*</span>
+            <span class="badge ms-1" style="background:#eff6ff;color:#1a3a6b;font-size:0.7rem;">Cost</span>
+        </label>
+        <select name="sumber_air" id="sumber_air" class="form-select @error('sumber_air') is-invalid @enderror" required>
+            <option value="1" {{ old('sumber_air', $penduduk->sumber_air ?? '') == 1 ? 'selected' : '' }}>1 – Sungai/Mata Air Terbuka</option>
+            <option value="2" {{ old('sumber_air', $penduduk->sumber_air ?? '') == 2 ? 'selected' : '' }}>2 – Sumur Tetangga</option>
+            <option value="3" {{ old('sumber_air', $penduduk->sumber_air ?? '') == 3 ? 'selected' : '' }}>3 – Sumur Sendiri</option>
+            <option value="4" {{ old('sumber_air', $penduduk->sumber_air ?? '') == 4 ? 'selected' : '' }}>4 – PDAM Lancar/Air Kemasan</option>
+        </select>
+        @error('sumber_air')<div class="invalid-feedback">{{ $message }}</div>@enderror
+    </div>
+
+    {{-- C8: Kendaraan (Aset) --}}
+    <div class="col-md-6">
+        <label class="form-label fw-semibold">
+            C8 – Kendaraan (Aset) <span class="text-danger">*</span>
             <span class="badge ms-1" style="background:#eff6ff;color:#1a3a6b;font-size:0.7rem;">Cost</span>
         </label>
         <select name="kendaraan" id="kendaraan" class="form-select @error('kendaraan') is-invalid @enderror" required>
-            <option value="1" {{ old('kendaraan', $penduduk->kendaraan ?? '') == 1 ? 'selected' : '' }}>1 – Tidak Punya</option>
-            <option value="2" {{ old('kendaraan', $penduduk->kendaraan ?? '') == 2 ? 'selected' : '' }}>2 – Sepeda Motor</option>
-            <option value="3" {{ old('kendaraan', $penduduk->kendaraan ?? '') == 3 ? 'selected' : '' }}>3 – Mobil</option>
-            <option value="4" {{ old('kendaraan', $penduduk->kendaraan ?? '') == 4 ? 'selected' : '' }}>4 – Motor & Mobil</option>
+            <option value="1" {{ old('kendaraan', $penduduk->kendaraan ?? '') == 1 ? 'selected' : '' }}>1 – Sepeda/Jalan Kaki</option>
+            <option value="2" {{ old('kendaraan', $penduduk->kendaraan ?? '') == 2 ? 'selected' : '' }}>2 – Motor 1 Unit</option>
+            <option value="3" {{ old('kendaraan', $penduduk->kendaraan ?? '') == 3 ? 'selected' : '' }}>3 – Motor > 1 Unit</option>
+            <option value="4" {{ old('kendaraan', $penduduk->kendaraan ?? '') == 4 ? 'selected' : '' }}>4 – Memiliki Mobil</option>
         </select>
         @error('kendaraan')<div class="invalid-feedback">{{ $message }}</div>@enderror
     </div>

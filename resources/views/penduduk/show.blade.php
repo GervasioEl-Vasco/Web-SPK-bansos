@@ -58,7 +58,7 @@
                             <td class="px-3"><code>C1</code></td>
                             <td>Penghasilan / Bulan</td>
                             <td>Rp {{ number_format($penduduk->penghasilan, 0, ',', '.') }}</td>
-                            <td><span class="badge bg-secondary">{{ $penduduk->penghasilan <= 1000000 ? 1 : ($penduduk->penghasilan <= 3000000 ? 2 : ($penduduk->penghasilan <= 5000000 ? 3 : 4)) }}</span></td>
+                            <td><span class="badge bg-secondary">{{ $penduduk->penghasilan <= 500000 ? 1 : ($penduduk->penghasilan <= 1000000 ? 2 : ($penduduk->penghasilan <= 1500000 ? 3 : 4)) }}</span></td>
                         </tr>
                         <tr>
                             <td class="px-3"><code>C2</code></td>
@@ -87,13 +87,19 @@
                         <tr>
                             <td class="px-3"><code>C6</code></td>
                             <td>Sumber Penerangan</td>
-                            <td>{{ $penduduk->sumber_penerangan_label }}</td>
+                            <td>{{ $penduduk->daya_listrik_label }}</td>
                             <td><span class="badge bg-secondary">{{ $penduduk->sumber_penerangan }}</span></td>
                         </tr>
                         <tr>
                             <td class="px-3"><code>C7</code></td>
-                            <td>Kepemilikan Kendaraan</td>
-                            <td>{{ $penduduk->kendaraan_label }}</td>
+                            <td>Sumber Air Bersih</td>
+                            <td>{{ $penduduk->sumber_air_label }}</td>
+                            <td><span class="badge bg-secondary">{{ $penduduk->sumber_air }}</span></td>
+                        </tr>
+                        <tr>
+                            <td class="px-3"><code>C8</code></td>
+                            <td>Kendaraan (Aset)</td>
+                            <td>{{ $penduduk->aset_transportasi_label }}</td>
                             <td><span class="badge bg-secondary">{{ $penduduk->kendaraan }}</span></td>
                         </tr>
                     </tbody>

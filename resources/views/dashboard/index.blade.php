@@ -5,7 +5,7 @@
 
 @section('styles')
 <style>
-    .chart-container { position: relative; height: 220px; }
+    .chart-container { position: relative; height: 160px; }
     .top-penerima-row { display: flex; align-items: center; gap: 0.75rem; padding: 0.6rem 0; border-bottom: 1px solid #f1f5f9; }
     .top-penerima-row:last-child { border-bottom: none; }
 </style>
@@ -204,7 +204,7 @@ new Chart(document.getElementById('chartKondisiRumah'), {
 new Chart(document.getElementById('chartPenghasilan'), {
     type: 'doughnut',
     data: {
-        labels: ['≤1 Juta', '1-3 Juta', '3-5 Juta', '>5 Juta'],
+        labels: ['≤ 500rb', '500rb-1jt', '1-1.5jt', '> 1.5jt'],
         datasets: [{
             data: {!! json_encode($penghasilanData) !!},
             backgroundColor: [colors.red, colors.amber, colors.light, colors.green],

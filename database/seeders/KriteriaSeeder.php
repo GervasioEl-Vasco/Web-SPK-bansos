@@ -5,19 +5,27 @@ namespace Database\Seeders;
 use App\Models\Kriteria;
 use App\Models\SubKriteria;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class KriteriaSeeder extends Seeder
 {
     public function run(): void
     {
-        // Disable foreign key checks during seeding
-        \DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        // Try to disable foreign key checks when permitted.
+        try {
+            DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        } catch (\Exception $e) {
+            // Ignore when the DB user lacks permission.
+        }
         
-        SubKriteria::truncate();
-        Kriteria::truncate();
+        SubKriteria::query()->delete();
+        Kriteria::query()->delete();
         
-        // Re-enable foreign key checks
-        \DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+        try {
+            DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+        } catch (\Exception $e) {
+            // Ignore when the DB user lacks permission.
+        }
 
         $kriterias = [
             [
@@ -26,17 +34,17 @@ class KriteriaSeeder extends Seeder
                 'sifat' => 'cost',
                 'bobot' => 0.25,
                 'sub'   => [
-                    ['keterangan' => '≤ Rp 1.000.000', 'nilai' => 1],
-                    ['keterangan' => 'Rp 1.000.001 – Rp 3.000.000', 'nilai' => 2],
-                    ['keterangan' => 'Rp 3.000.001 – Rp 5.000.000', 'nilai' => 3],
-                    ['keterangan' => '> Rp 5.000.000', 'nilai' => 4],
+                    ['keterangan' => '≤ Rp 500.000', 'nilai' => 1],
+                    ['keterangan' => 'Rp 500.001 – Rp 1.000.000', 'nilai' => 2],
+                    ['keterangan' => 'Rp 1.000.001 – Rp 1.500.000', 'nilai' => 3],
+                    ['keterangan' => '> Rp 1.500.000', 'nilai' => 4],
                 ],
             ],
             [
                 'kode'  => 'C2',
                 'nama'  => 'Jumlah Tanggungan Keluarga',
-                'sifat' => 'cost',
-                'bobot' => 0.20,
+                'sifat' => 'benefit',
+                'bobot' => 0.15,
                 'sub'   => [
                     ['keterangan' => '1 orang', 'nilai' => 1],
                     ['keterangan' => '2 orang', 'nilai' => 2],
@@ -48,23 +56,23 @@ class KriteriaSeeder extends Seeder
                 'kode'  => 'C3',
                 'nama'  => 'Kondisi / Status Rumah',
                 'sifat' => 'cost',
-                'bobot' => 0.20,
+                'bobot' => 0.15,
                 'sub'   => [
-                    ['keterangan' => 'Kontrak / Sewa', 'nilai' => 1],
-                    ['keterangan' => 'Bambu / Kayu', 'nilai' => 2],
-                    ['keterangan' => 'Plester / Semi Permanen', 'nilai' => 3],
-                    ['keterangan' => 'Tembok Keramik / Permanen', 'nilai' => 4],
+                    ['keterangan' => 'Numpang / Magersari', 'nilai' => 1],
+                    ['keterangan' => 'Kontrak / Sewa', 'nilai' => 2],
+                    ['keterangan' => 'Rumah Warisan / Keluarga', 'nilai' => 3],
+                    ['keterangan' => 'Rumah Sendiri Permanen', 'nilai' => 4],
                 ],
             ],
             [
                 'kode'  => 'C4',
                 'nama'  => 'Luas Bangunan',
                 'sifat' => 'cost',
-                'bobot' => 0.15,
+                'bobot' => 0.10,
                 'sub'   => [
                     ['keterangan' => '< 30 m²', 'nilai' => 1],
-                    ['keterangan' => '30 – 60 m²', 'nilai' => 2],
-                    ['keterangan' => '61 – 90 m²', 'nilai' => 3],
+                    ['keterangan' => '30 - 60 m²', 'nilai' => 2],
+                    ['keterangan' => '61 - 90 m²', 'nilai' => 3],
                     ['keterangan' => '> 90 m²', 'nilai' => 4],
                 ],
             ],
@@ -74,34 +82,46 @@ class KriteriaSeeder extends Seeder
                 'sifat' => 'cost',
                 'bobot' => 0.10,
                 'sub'   => [
-                    ['keterangan' => 'Tanah', 'nilai' => 1],
-                    ['keterangan' => 'Papan / Kayu', 'nilai' => 2],
-                    ['keterangan' => 'Plester / Semen', 'nilai' => 3],
-                    ['keterangan' => 'Keramik / Granit', 'nilai' => 4],
+                    ['keterangan' => 'Tanah / Bambu', 'nilai' => 1],
+                    ['keterangan' => 'Semen / Kayu', 'nilai' => 2],
+                    ['keterangan' => 'Plester', 'nilai' => 3],
+                    ['keterangan' => 'Keramik / Marmer', 'nilai' => 4],
                 ],
             ],
             [
                 'kode'  => 'C6',
                 'nama'  => 'Sumber Penerangan',
                 'sifat' => 'cost',
-                'bobot' => 0.05,
+                'bobot' => 0.10,
                 'sub'   => [
-                    ['keterangan' => 'Tidak Ada Listrik', 'nilai' => 1],
-                    ['keterangan' => 'PLN Tanpa Meteran', 'nilai' => 2],
-                    ['keterangan' => 'PLN ≤ 450 VA', 'nilai' => 3],
-                    ['keterangan' => 'PLN > 450 VA', 'nilai' => 4],
+                    ['keterangan' => 'Tanpa Listrik / Lampu Tempel', 'nilai' => 1],
+                    ['keterangan' => 'Listrik PLN 450 Watt', 'nilai' => 2],
+                    ['keterangan' => 'Listrik PLN 900 Watt', 'nilai' => 3],
+                    ['keterangan' => 'Listrik PLN > 900 Watt', 'nilai' => 4],
                 ],
             ],
             [
                 'kode'  => 'C7',
-                'nama'  => 'Kepemilikan Kendaraan',
+                'nama'  => 'Sumber Air Bersih',
+                'sifat' => 'cost',
+                'bobot' => 0.10,
+                'sub'   => [
+                    ['keterangan' => 'Sungai / Mata Air Terbuka', 'nilai' => 1],
+                    ['keterangan' => 'Sumur Tetangga', 'nilai' => 2],
+                    ['keterangan' => 'Sumur Sendiri', 'nilai' => 3],
+                    ['keterangan' => 'PDAM Lancar / Air Kemasan', 'nilai' => 4],
+                ],
+            ],
+            [
+                'kode'  => 'C8',
+                'nama'  => 'Kendaraan (Aset)',
                 'sifat' => 'cost',
                 'bobot' => 0.05,
                 'sub'   => [
-                    ['keterangan' => 'Tidak Punya', 'nilai' => 1],
-                    ['keterangan' => 'Sepeda Motor', 'nilai' => 2],
-                    ['keterangan' => 'Mobil', 'nilai' => 3],
-                    ['keterangan' => 'Motor & Mobil', 'nilai' => 4],
+                    ['keterangan' => 'Sepeda / Jalan Kaki', 'nilai' => 1],
+                    ['keterangan' => 'Motor 1 Unit', 'nilai' => 2],
+                    ['keterangan' => 'Motor > 1 Unit', 'nilai' => 3],
+                    ['keterangan' => 'Memiliki Mobil', 'nilai' => 4],
                 ],
             ],
         ];

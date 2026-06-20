@@ -153,9 +153,9 @@
         </tr>
     </thead>
     <tbody>
-        @foreach($hasilSeleksi as $loop => $h)
+        @foreach($hasilSeleksi as $h)
         <tr>
-            <td class="text-center">{{ $loop + 1 }}</td>
+            <td class="text-center">{{ $loop->iteration }}</td>
             <td class="rank-cell">{{ $h->ranking }}</td>
             <td style="font-family:monospace; font-size:8pt;">{{ $h->penduduk->nik }}</td>
             <td><strong>{{ $h->penduduk->nama }}</strong></td>

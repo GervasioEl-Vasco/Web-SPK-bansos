@@ -43,6 +43,7 @@ class PendudukController extends Controller
             'luas_bangunan'     => 'required|integer|min:0',
             'jenis_lantai'      => 'required|integer|between:1,4',
             'sumber_penerangan' => 'required|integer|between:1,4',
+            'sumber_air'        => 'required|integer|between:1,4',
             'kendaraan'         => 'required|integer|between:1,4',
         ]);
 
@@ -76,6 +77,7 @@ class PendudukController extends Controller
             'luas_bangunan'     => 'required|integer|min:0',
             'jenis_lantai'      => 'required|integer|between:1,4',
             'sumber_penerangan' => 'required|integer|between:1,4',
+            'sumber_air'        => 'required|integer|between:1,4',
             'kendaraan'         => 'required|integer|between:1,4',
         ]);
 

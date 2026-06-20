@@ -123,19 +123,20 @@ class SeleksiController extends Controller
         return [
             'C1' => $this->ratingPenghasilan($p->penghasilan),
             'C2' => $this->ratingTanggungan($p->tanggungan),
-            'C3' => $p->kondisi_rumah,   // sudah 1-4
+            'C3' => $p->kondisi_rumah,
             'C4' => $this->ratingLuas($p->luas_bangunan),
-            'C5' => $p->jenis_lantai,    // sudah 1-4
-            'C6' => $p->sumber_penerangan, // sudah 1-4
-            'C7' => $p->kendaraan,       // sudah 1-4
+            'C5' => $p->jenis_lantai,
+            'C6' => $p->sumber_penerangan,
+            'C7' => $p->sumber_air,
+            'C8' => $p->kendaraan,
         ];
     }
 
     private function ratingPenghasilan(int $penghasilan): int
     {
-        if ($penghasilan <= 1000000) return 1;
-        if ($penghasilan <= 3000000) return 2;
-        if ($penghasilan <= 5000000) return 3;
+        if ($penghasilan <= 500000) return 1;
+        if ($penghasilan <= 1000000) return 2;
+        if ($penghasilan <= 1500000) return 3;
         return 4;
     }
 
@@ -144,6 +145,14 @@ class SeleksiController extends Controller
         if ($tanggungan <= 1) return 1;
         if ($tanggungan <= 2) return 2;
         if ($tanggungan <= 3) return 3;
+        return 4;
+    }
+
+    private function ratingAnggotaSekolah(int $jumlah): int
+    {
+        if ($jumlah === 0) return 1;
+        if ($jumlah === 1) return 2;
+        if ($jumlah === 2) return 3;
         return 4;
     }
 

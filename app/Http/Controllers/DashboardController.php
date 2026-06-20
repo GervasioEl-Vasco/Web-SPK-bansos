@@ -29,10 +29,10 @@ class DashboardController extends Controller
 
         // Data grafik penghasilan
         $penghasilanData = [
-            Penduduk::where('penghasilan', '<=', 1000000)->count(),
-            Penduduk::whereBetween('penghasilan', [1000001, 3000000])->count(),
-            Penduduk::whereBetween('penghasilan', [3000001, 5000000])->count(),
-            Penduduk::where('penghasilan', '>', 5000000)->count(),
+            Penduduk::where('penghasilan', '<=', 500000)->count(),
+            Penduduk::whereBetween('penghasilan', [500001, 1000000])->count(),
+            Penduduk::whereBetween('penghasilan', [1000001, 1500000])->count(),
+            Penduduk::where('penghasilan', '>', 1500000)->count(),
         ];
 
         // Top 5 penerima layak

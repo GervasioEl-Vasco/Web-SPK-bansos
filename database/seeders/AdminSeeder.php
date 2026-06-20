@@ -14,7 +14,7 @@ class AdminSeeder extends Seeder
         \DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         
         User::truncate();
-        
+         
         // Re-enable foreign key checks
         \DB::statement('SET FOREIGN_KEY_CHECKS=1;');
 
